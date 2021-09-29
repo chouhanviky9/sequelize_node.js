@@ -1,0 +1,129 @@
+//sql Guide
+
+
+//sql datatype
+//INT => for storing an integer value
+//DECIMAL(10,4) => for decimal 10 total number and 4 digits after decimalweb3.currentProvider
+//VARCHAR(number of charcter) => for storing String
+//BLOB => for storing binary digits 
+//DATE => for storing date 
+//TIMESTAMP => for storing timestamp 
+
+
+//*****console******
+// path env variable mac => export PATH=${PATH}:/usr/local/mysql/bin/
+// restart bash mac => source ~/.bashrc 
+//for creating a new database => create database {name}
+
+//for creating a new table
+// CREATE TABLE student(
+//     student_id INT PRIMARY KEY  AUTO_INCREMENT,
+//     name VARCHAR(20) NOT NULL ,
+//     major VARCHAR(20) UNIQUE ,
+//     PRIMARY KEY(student_id){if not mentioned above}
+// );
+
+//for describing a table
+//DESCRIBE student;
+
+//for dropping a table
+// DROP TABLE student;
+
+//for adding a new column
+// ALTER TABLE student ADD gpa DECIMAL(3,2);
+
+//for removing a colume
+//ALTER TABLE student DROP COLUMN gpa;
+
+//for insert value 
+// INSERT INTO student VALUES(1,"Jack","Biology"); => you have to provide values according to table schema
+// INSERT INTO student(student_id,name,major) VALUES(2,"Kate","Sociology"); =>if want to custom input
+
+// update whole column 
+// UPDATE student
+// Set name="Kate"
+// where name="KAte";
+
+//delete everything from table
+//DELETE FROM student;
+
+//delete a row
+// DELETE FROM student
+// WHERE student_id=1
+
+//get list of data you want and by order you want ASC and DESC for ascending and decending first order
+// SELECT student.name,student.major 
+// FROM test.student
+// ORDER BY name DESC;  
+
+//setting limit of entries you want
+// SELECT * 
+// FROM student
+// LIMIT 2 ;
+
+//operators in sql are:
+//<> => not equal to
+// > greater than < less than >=,<=,or,and;
+
+//for multiple filters you can
+// SELECT * 
+// FROM student
+// where name IN ("kate","james","jack") && major IN ("chemistry","Bio") || student_id<3;
+
+//SELECT DISTINCT sex from employee;
+//select AVG(salary)from employee;
+//select SUM(salary) from employee;
+//select COUNT(sex),sex from employee group by sex;
+
+// select first_name
+// from employee
+// UNION
+// select branch_name
+// from branch;
+
+// SELECT employee.emp_id,employee.first_name,Branch.branch_name
+// from employee
+// join Branch
+// on employee.emp_id=Branch.mgr_id;
+// left join right join
+
+//nested query
+// select employee.first_name,employee.last_name
+// from employee
+// where employee.emp_id in(
+// SELECT works_with.emp_id
+// from works_with 
+// where works_with.total_sales >3000
+// )
+
+// select client.client_name
+// from client
+// where client.branch_id=(
+// select branch_id
+// from Branch
+// where Branch.mgr_id=102
+// limit 1
+// )
+
+
+// CREATE TABLE branch_supplier (
+//     branch_id INT,
+//     supplier_name VARCHAR(40),
+//     supply_type VARCHAR(40),
+//     PRIMARY KEY(branch_id, supplier_name),
+//     FOREIGN KEY(branch_id) REFERENCES branch(branch_id) ON DELETE CASCADE
+//   ); =>cascade delete the element when refrence row deleted
+
+//creating triggers 
+// DELIMITER $$
+// CREATE
+//     TRIGGER my_trigger BEFORE INSERT
+//     ON employee
+//     FOR EACH ROW BEGIN
+//         INSERT INTO trigger_test VALUES('added new employee');
+//     END$$
+// DELIMITER ;
+
+// CREATE TABLE trigger_test (
+//      message VARCHAR(100)
+// );
